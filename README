@@ -1,0 +1,30 @@
+To start using svn-assets include asset_versions.php (which will be created by make rules, see below) and svn-assets/asset_functions.php at the top of your pages so your code can use versioning info.
+
+And replace all absolute URLs to your static assets with a call to assetURL function passing it relative URL in repository:
+
+instead of
+
+   <img src="/images/logo.png"/>
+
+use
+
+   <img src="<?php echo assetURL('images/logo.png')?>"/>
+
+
+Also, if you're planning to use domain sharding, set $baseURL to the base of the CDN domain, e.g.
+
+   $baseURL = 'http://www.example.net/';
+
+Make sure you don't use a subdomain of your main site as your performance will be affected by cookies set either by your application or banners or analytics tool like Google Analytics, use another top level domain (you probably have .org and .net registered anyway).
+
+Now set up your web server to set infinite expires on static assets and ignore versioning info in the URL and serve the latest asset anyway (old cached version will not be requested anyway as it's going to be in a browser's cache). See nginx.conf_sample for configuration sample for nginx web server - configuring other web servers should be quite similar (we'll add apache config sample soon).
+
+Then add rules from example Makefile to your makefile and make sure that you add 'assets' target to your 'all' target and 'noassets' to 'clean'.
+
+And run
+
+   make assets
+
+to test if your code works.
+
+Now, make sure you always run 'make' (which in turn executes 'make assets') when you build your code.
