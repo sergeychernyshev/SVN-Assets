@@ -1,4 +1,4 @@
-<?
+<?php
 require_once(dirname(__FILE__).'/asset_functions.php');
 
 if (preg_match('/_deploy.css$/', $argv[1])) {

@@ -1,1 +1,1 @@
-<? $assetVersions = array();
+<?php $assetVersions = array();

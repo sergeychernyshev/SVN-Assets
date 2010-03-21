@@ -1,4 +1,4 @@
-<?
+<?php
 $status = simplexml_load_file("php://stdin");
 
 $total = count($status->target->entry);
