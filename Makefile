@@ -1,6 +1,6 @@
 all: assets
 
-clean:
+clean: noassets
 	find ./ -name '*_deploy.css' | xargs -n10 rm
 
 assets:
