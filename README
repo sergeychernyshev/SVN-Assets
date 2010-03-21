@@ -27,4 +27,8 @@ And run
 
 to test if your code works.
 
+Since css rewriting script will be creating _deploy.css files with rewritten paths, you might want to ingore them in your repository by calling this command:
+
+   svn propset -R svn:ignore '*_deploy.css' .
+
 Now, make sure you always run 'make' (which in turn executes 'make assets') when you build your code.
