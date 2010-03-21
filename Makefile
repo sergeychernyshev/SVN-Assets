@@ -1,7 +1,6 @@
 all: assets
 
 clean: noassets
-	find ./ -name '*_deploy.css' | xargs -n10 rm
 
 assets:
 	svn status --verbose --xml |php svn-assets/svnassets.php > asset_versions.php
@@ -10,3 +9,4 @@ assets:
 
 noassets:
 	cp svn-assets/no-assets.php asset_versions.php
+	find ./ -name '*_deploy.css' | xargs -n10 rm
