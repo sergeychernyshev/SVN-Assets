@@ -1,5 +1,8 @@
 To start using svn-assets include asset_versions.php (which will be created by make rules, see below) and svn-assets/asset_functions.php at the top of your pages so your code can use versioning info.
 
+   require_once('asset_versions.php');
+   require_once('svn-assets/asset_function.php');
+
 And replace all absolute URLs to your static assets with a call to assetURL function passing it relative URL in repository:
 
 instead of
@@ -13,7 +16,7 @@ use
 
 Also, if you're planning to use domain sharding, set $baseURL to the base of the CDN domain, e.g.
 
-   $baseURL = 'http://www.example.net/';
+   $baseAssetURL = 'http://www.example.net/';
 
 Make sure you don't use a subdomain of your main site as your performance will be affected by cookies set either by your application or banners or analytics tool like Google Analytics, use another top level domain (you probably have .org and .net registered anyway).
 
