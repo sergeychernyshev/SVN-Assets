@@ -50,4 +50,13 @@ for ($i = 0; $i < $total; $i++) {
 	}
 }
 
-echo '<?php $assetVersions = '.var_export($items, true).';';
+$sorted_items = array();
+
+$paths = array_keys($items);
+sort($paths, SORT_STRING);
+
+foreach ($paths as $path) {
+	$sorted_items[$path] = $items[$path];
+}
+
+echo '<?php $assetVersions = '.var_export($sorted_items, true).';';
