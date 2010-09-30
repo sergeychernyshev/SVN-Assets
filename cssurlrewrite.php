@@ -1,5 +1,6 @@
 <?php
 require_once(dirname(__FILE__).'/asset_functions.php');
+require_once(dirname(__FILE__).'/config.php');
 
 if (preg_match('/_deploy.css$/', $argv[1])) {
 	exit;
@@ -10,8 +11,6 @@ if (!preg_match('/.css$/', $argv[1])) {
 }
 
 $css = implode('', file($argv[1]));
-
-$baseCSSURLprefix = '/';
 
 function replace_css_url($matches) {
 	global $baseCSSURLprefix;

@@ -18,7 +18,11 @@ function assetURL($path) {
 function replace_asset_url($matches) {
 	global $assetVersions;
 
-	$path = preg_replace('|\.css$|', '_deploy.css', $matches[1]);
+	$path = $matches[1];
+
+	if ($matches[2] == 'css') {
+		$path .= '_deploy';
+	}
 
 	if (getenv('URLVERSIONREWRITE') == 'YES') {
 		return $path.'.'.$assetVersions[$matches[0]].'.'.$matches[2];
