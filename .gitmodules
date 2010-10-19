@@ -1,0 +1,3 @@
+[submodule "sample.htaccess"]
+	path = sample.htaccess
+	url = http://github.com/sergeychernyshev/.htaccess.git
