@@ -28,6 +28,6 @@ function replace_css_url($matches) {
 
 $output = fopen(preg_replace('/.css$/', '_deploy.css', $argv[1]), 'w');
 
-fwrite($output, preg_replace_callback('/url\(\s*[\'"](.*?)[\'"]?\s*\)/i', 'replace_css_url', $css));
+fwrite($output, preg_replace_callback('/url\(\s*[\'"]?(.*?)[\'"]?\s*\)/i', 'replace_css_url', $css));
 
 fclose($output);
