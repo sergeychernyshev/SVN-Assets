@@ -5,6 +5,24 @@ if (!isset($assetVersions)) {
 	$assetVersions = array();
 }
 
+function loadAssetVersionsTSV($filename) {
+	global $assetVersions;
+
+	if (!file_exists($filename)) {
+		return;
+	}
+
+	foreach(file($filename) as $line) {
+		$pair = explode("\t", rtrim($line));
+
+		$assetVersions[$pair[1]] = $pair[0];
+	}
+}
+
+function u($path) {
+	return assetURL($path);
+}
+
 function assetURL($path) {
 	global $baseAssetURL, $assetVersions;
 
