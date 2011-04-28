@@ -1,5 +1,7 @@
 <?php
-$baseAssetURL = '/';
+if (!isset($baseAssetURL)) {
+	$baseAssetURL = '/';
+}
 
 if (!isset($assetVersions)) {
 	$assetVersions = array();
