@@ -1,4 +1,5 @@
 <?php
+
 if (!isset($baseAssetURL)) {
 	$baseAssetURL = '/';
 }
@@ -14,7 +15,7 @@ function loadAssetVersionsTSV($filename) {
 		return;
 	}
 
-	foreach(file($filename) as $line) {
+	foreach (file($filename) as $line) {
 		$pair = explode("\t", rtrim($line));
 
 		$assetVersions[$pair[1]] = $pair[0];
@@ -28,11 +29,9 @@ function u($path) {
 function assetURL($path) {
 	global $baseAssetURL, $assetVersions;
 
-	if (array_key_exists($path, $assetVersions)) {
-		$path = preg_replace_callback('|^(.*)\.([^\.]+)$|', 'replace_asset_url', $path);
-	}
+	$path = preg_replace_callback('|^(.*)\.([^\.]+)$|', 'replace_asset_url', $path);
 
-	return $baseAssetURL.$path; 
+	return $baseAssetURL . $path;
 }
 
 function replace_asset_url($matches) {
@@ -44,9 +43,13 @@ function replace_asset_url($matches) {
 		$path .= '_deploy';
 	}
 
-	if (getenv('URLVERSIONREWRITE') == 'YES') {
-		return $path.'.'.$assetVersions[$matches[0]].'.'.$matches[2];
+	if (array_key_exists($path, $assetVersions)) {
+		if (getenv('URLVERSIONREWRITE') == 'YES') {
+			return $path . '.' . $assetVersions[$matches[0]] . '.' . $matches[2];
+		} else {
+			return $path . '.' . $matches[2] . '?v=' . $assetVersions[$matches[0]];
+		}
 	} else {
-		return $path.'.'.$matches[2].'?v='.$assetVersions[$matches[0]];
+		return $path . '.' . $matches[2];
 	}
 }
