@@ -8,6 +8,10 @@ if (!isset($assetVersions)) {
 	$assetVersions = array();
 }
 
+if (!isset($ignoreCSS)) {
+	$ignoreCSS = array();
+}
+
 function loadAssetVersionsTSV($filename) {
 	global $assetVersions;
 
@@ -35,12 +39,22 @@ function assetURL($path) {
 }
 
 function replace_asset_url($matches) {
-	global $assetVersions;
+	global $assetVersions, $ignoreCSS;
 
 	$path = $matches[1];
 
 	if ($matches[2] == 'css') {
-		$path .= '_deploy';
+		$ignore = false;
+		foreach ($ignoreCSS as $pattern) {
+			if (preg_match($pattern, $path)) {
+				$ignore = true;
+				break;
+			}
+		}
+
+		if (!$ignore) {
+			$path .= '_deploy';
+		}
 	}
 
 	if (array_key_exists($path, $assetVersions)) {
