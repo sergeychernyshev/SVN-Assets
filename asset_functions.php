@@ -57,7 +57,7 @@ function replace_asset_url($matches) {
 		}
 	}
 
-	if (array_key_exists($path, $assetVersions)) {
+	if (array_key_exists($path . '.' . $matches[2], $assetVersions)) {
 		if (getenv('URLVERSIONREWRITE') == 'YES') {
 			return $path . '.' . $assetVersions[$matches[0]] . '.' . $matches[2];
 		} else {
